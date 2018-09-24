@@ -98,6 +98,16 @@ app.get('/', function(req, res) {
 //update data
 app.post('/products/update', function(req, res) {
 
+    var id = req.body.id;
+    var title = req.body.title;
+    var price = req.body.price;
+   // var sql = 'update products set title : "'+title+ '" price : "'+price+ '" where id : '+id;  วิธีต่อเเบบไม่ดี
+  // Alt+96 = ``
+   var sql =  `update products set title : ${title} price : ${price} where id : ${id}`
+   //db.none
+   console.log('UPDATE : '+sql);
+    res.redirect('/products');
+
 });
 
   console.log('Appp is running at http://localhost:8080');          
