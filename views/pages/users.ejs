@@ -1,23 +1,26 @@
 <% include ../partials/header %>
-  
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>user ID</th>
-                        <th>Emil</th>
-                        <th>Password</th>
-                    </tr>
-                </thead>
-                <tbody>
-                 <% users.forEach(function(user) { %>
-                    <tr>
-                        <td scope="row"><%= user.id %></td>
-                        <td><%= user.email %></td>
-                        <td><%= user.password %></td>
-                    </tr>
-                     <% }); %>
-                </tbody>
-            </table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>E-mail</th>
+            <th>Password</th>
+        </tr>
+    </thead>
+    <tbody>
+     <% users.forEach(function(user){ %>
+        <tr>
+            <td scope="row"><%=user.id %></td>
+            <td><%=user.email %></td>
+            <td><%=user.password %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+</table>
 
 
- <% include ../partials/footer %>
+
+
+
+  <% include ../partials/footer %>

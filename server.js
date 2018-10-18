@@ -1,134 +1,140 @@
 var express = require('express');
 var pgp = require('pg-promise')();
-//db ข้างล่างจะดึงข้อมูลจาก database progres จะไม่เเสดงรหัส
-//var db = pgp(process.env.DATABASE_URL);
-//db ช้างล่างโชว์ดาต้าเบสทำให้คนอื่นสามารถใช้ password มาเเก้ไขข้อมูลได้จึงไม่ค่อยเหมาะสม
-var db = pgp('postgres://qzwdfalyaqhdjf:f202bed3f53d1dc03b523853492dbfc397e1208f83d2e775b45f46c9652fe5bd@ec2-54-243-147-162.compute-1.amazonaws.com:5432/d70ueqr41e79i9?ssl=true');
-//db ssl=true =ใช้ทดสอบดาต้าเบสในเครื่อง
-// var db = pgp('postgres://nkwnjxuiidwrns:b72b4de42f726173c9acee8a85dd10ed1c8dc1a2ab7402a6feebbbccb8b14f85@ec2-54-163-245-44.compute-1.amazonaws.com:5432/d34ii1v5fr4h1e?ssl=true');
+// var db = pgp(process.env.DATABASE_URL);
+var db = pgp('postgres://quxstzwnixkzml:c424aa6bac17fee1536ed4d7a61df67a66170995a252aed36c491ecd68444427@ec2-107-20-249-48.compute-1.amazonaws.com:5432/d5tcre0n3cjia1?ssl=true');
 var app = express();
+var bodyParser = require('body-parser');//บังคับ
+app.use(bodyParser.json());//บังคับ
+app.use(bodyParser.urlencoded({ extended: true })); //บังคับ
 
-var bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
-//app.use(express.static ('static') );
-app.set('view engine', 'ejs');
 
-app.get('/', function (req, res) {
+
+// app.use(express.static('static'));
+app.set('view engine','ejs');
+app.get('/', function(req, res) {
     res.render('pages/index');
+});
+app.get('/about', function(req, res) {
+    var name = 'Lekkla Wilailak'
+    var hobbies = ['music','movie','programing']
+    var bdate = '18/08/59';
+    res.render('pages/about',{fullname : name,hobbies : hobbies,Birthday : bdate});
+});
+// Display all products
+app.get('/products/:pid', function(req, res) {
+var pid = req.params.pid;
+var sql = 'select* from products where id ='+pid;
+db.any(sql)
+.then(function(data){
+    console.log('DATA:'+data);
+    res.render('pages/product_edit',{product: data[0]})
+    
+})
+.catch(function(error){
+    console.log('ERROR:'+error);
+})
+
+
 
 });
 
-app.get('/about', function (req, res) {
-    var name = ['BUBBLE'];
-    var hobbies = ['Music', 'Movie', 'Programming'];
-    var bdate = '27/03/1997';
-    res.render('pages/about', { fullname: name, hobbies: hobbies, bdate: bdate });
 
-});
+
 //Display all products
-app.get('/products', function (req, res) {
+app.get('/products', function(req, res) {
     var id = req.param('id');
-    var sql = 'select* from products';
-    if (id) {
-        sql += ' where id =' + id;
+    var sql='select* from products';
+        if(id){
+            sql += ' where id ='+id;
+        }
+   db.any(sql)
+    .then(function(data){
+        console.log('DATA:'+data);
+        res.render('pages/products',{products: data})
+        
+    })
+    .catch(function(error){
+        console.log('ERROR:'+error);
+    })
+
+});
+
+
+
+
+
+
+
+
+
+// Display all user
+app.get('/users/:id', function(req, res) {
+    var id=req.param('id');
+    var sql = 'select * from users';
+    if(id){
+        sql+=' where id ='+id;
     }
     db.any(sql)
-        .then(function (data) {
-            console.log('DATA:' + data);
-            res.render('pages/products', { products: data })
+    .then(function(data){
+    console.log('DATA:'+data);
+    res.render('pages/users',{users : data})
 
-        })
-        .catch(function (error) {
-            console.log('ERROR:' + error);
-        })
-
+    })
+    .catch(function(error){
+        console.log('ERROR:'+error)
+    })});
+    // Display all user
+    app.get('/users', function (req, res) {
+        db.any('select * from users', )
+            .then(function (data) {
+                console.log('DATA' + data);
+                res.render('pages/users', { users: data })
+    
+            })
+            .catch(function (error) {
+                console.log('ERROR:' + error);
+            })
+    
 });
 
-//GET products pid
-app.get('/products/:pid', function (req, res) {
-    var pid = req.params.pid;
-    var sql = "select * from products where id= " + pid;
-    db.any(sql)
-        .then(function (data) {
-            console.log('DATA:' + data);
-            res.render('pages/products_edit', { product: data[0] })
 
-        })
-        .catch(function (error) {
-            console.log('ERROR:' + error);
-        })
+//update
+app.post('/products/update',function (req, res) {
+var id =req.body.id;
+var title =req.body.title;
+var price =req.body.price;
+var sql=`update products set title='${title}',price=${price} where id=${id}`;
+// res.send(sql)
+//db.none
+db.query(sql);
+    res.redirect('/products')    
+db.close();
+})
 
 
-});
-
-//Display all user
-app.get('/users', function (req, res) {
-    var id = req.param('id');
-    var sql = 'select* from users';
-    if (id) {
-        sql += ' where id =' + id;
-    }
-    db.any(sql)
-        .then(function (data) {
-            console.log('DATA:' + data);
-            res.render('pages/users', { users: data })
-
-        })
-        .catch(function (error) {
-            console.log('ERROR:' + error);
-        })
-
-});
-//Display all user id
-app.get('/users/:id', function (req, res) {
-    var id = req.param('id');
-    var sql = 'select* from users';
-    if (id) {
-        sql += ' where id =' + id;
-    }
-    db.any(sql)
-        .then(function (data) {
-            console.log('DATA:' + data);
-            res.render('pages/users', { users: data })
-
-        })
-        .catch(function (error) {
-            console.log('ERROR:' + error);
-        })
-
-});
-
-//update data
-app.post('/products/update', function (req, res) {
-
-    var id = req.body.id;
-    var title = req.body.title;
-    var price = req.body.price;
-    // var sql = 'update products set title : "'+title+ '" price : "'+price+ '" where id : '+id;  วิธีต่อเเบบไม่ดี
-    // Alt+96 = ``
-    var sql = `update products set title = ${title} price = ${price} where id = ${id}`;
-    //db.none
-    db.none(sql)
-        .then(function() {
-            console.log('DATA:');
-            //res.render('pages/users');
-            //res.redirect('/products');
-            res.status(200);
-
-        })
-        .catch(function (error) {
-            console.log('ERROR:' + error);
-        })
-
-    console.log('UPDATE : ' + sql);
-
-});
-var port = process.env.PORT || 8080;
-app.listen(port, function () {
-    console.log('App is running on http://localhost:' + port);
-});
-//   console.log('Appp is running at http://localhost:8080');          
-
+// console.log('app is running at http://localhost:8080');
 // app.listen(8080);
+var port = process.env.PORT || 8080;
+app.listen(port, function() {
+console.log('App is running on http://localhost:' + port);
+});
+
+// app.post('/products/update', async (req, res) => {
+//     var id =req.body.id;
+// var title =req.body.title;
+// var price =req.body.price;
+// var sql=`update products set title=${title},price=${price} where id=${id}`;
+    
+//     try {
+//       const client = await pool.connect()
+//       const result = await client.query(sql);
+//       //const results = { 'results': (result) ? result.rows : null};
+//       //res.render('pages/db', results );
+//       res.send("test");
+//       client.end();
+//     } catch (err) {
+//       console.error(err);
+//       res.send("Error " + err);
+//     }
+//   })
