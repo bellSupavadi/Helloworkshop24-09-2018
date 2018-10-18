@@ -114,7 +114,8 @@ app.post('/products/update', function (req, res) {
         .then(function() {
             console.log('DATA:');
             //res.render('pages/users');
-            res.redirect('/products');
+            //res.redirect('/products');
+            res.status(200);
 
         })
         .catch(function (error) {
