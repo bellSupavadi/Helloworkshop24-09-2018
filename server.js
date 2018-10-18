@@ -111,7 +111,7 @@ app.post('/products/update', function (req, res) {
     var sql = `update products set title = ${title} price = ${price} where id = ${id}`;
     //db.none
     db.none(sql)
-        .then(f =>{
+        .then(function() {
             console.log('DATA:');
             //res.render('pages/users');
             res.redirect('/products');
