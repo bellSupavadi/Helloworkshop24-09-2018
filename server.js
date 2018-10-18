@@ -117,6 +117,27 @@ app.post('/products/update', function (req, res) {
     db.close();
 })
 
+//Delete
+app.get('/products_delete/:pid', function (req, res) {
+    var id = req.params.pid;
+    var sql = 'DELETE FROM products';
+    if(id){
+        sql += 'where id ='+id;
+    }
+    db.any(sql)
+        .then(function (data) {
+            console.log('DATA:' + data);
+            res.render('pages/products', { product: data[0] })
+
+        })
+        .catch(function (error) {
+            console.log('ERROR:' + error);
+        })
+
+
+
+});
+
 
 // console.log('app is running at http://localhost:8080');
 // app.listen(8080);
