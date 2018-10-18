@@ -1,7 +1,7 @@
 var express = require('express');
 var pgp = require('pg-promise')();
 // var db = pgp(process.env.DATABASE_URL);
-var db = pgp('postgres://quxstzwnixkzml:c424aa6bac17fee1536ed4d7a61df67a66170995a252aed36c491ecd68444427@ec2-107-20-249-48.compute-1.amazonaws.com:5432/d5tcre0n3cjia1?ssl=true');
+var db = pgp('postgres://qzwdfalyaqhdjf:f202bed3f53d1dc03b523853492dbfc397e1208f83d2e775b45f46c9652fe5bd@ec2-54-243-147-162.compute-1.amazonaws.com:5432/d70ueqr41e79i9');
 var app = express();
 var bodyParser = require('body-parser');//บังคับ
 app.use(bodyParser.json());//บังคับ
