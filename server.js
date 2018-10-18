@@ -110,7 +110,7 @@ app.post('/products/update', function (req, res) {
     // Alt+96 = ``
     var sql = `update products set title = ${title} price = ${price} where id = ${id}`;
     //db.none
-    db.query(sql)
+    db.none(sql)
         .then(function () {
             console.log('DATA:');
             //res.render('pages/users');
