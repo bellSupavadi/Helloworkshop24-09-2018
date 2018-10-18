@@ -113,7 +113,7 @@ app.post('/products/update', function (req, res) {
     db.query(sql)
         .then(function () {
             console.log('DATA:');
-            res.render('pages/users');
+            //res.render('pages/users');
             res.redirect('/products');
 
         })
