@@ -114,6 +114,7 @@ app.post('/products/update', function (req, res) {
         .then(function () {
             console.log('DATA:');
             res.render('pages/users');
+            res.redirect('/products');
 
         })
         .catch(function (error) {
@@ -121,7 +122,6 @@ app.post('/products/update', function (req, res) {
         })
 
     console.log('UPDATE : ' + sql);
-    res.redirect('/products');
 
 });
 var port = process.env.PORT || 8080;
