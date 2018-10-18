@@ -108,8 +108,18 @@ app.post('/products/update', function (req, res) {
     var price = req.body.price;
     // var sql = 'update products set title : "'+title+ '" price : "'+price+ '" where id : '+id;  วิธีต่อเเบบไม่ดี
     // Alt+96 = ``
-    var sql = `update products set title : ${title} price : ${price} where id : ${id}`
+    var sql = `update products set title = ${title} price = ${price} where id = ${id}`;
     //db.none
+    db.query(sql)
+        .then(function () {
+            console.log('DATA:');
+            res.render('pages/users');
+
+        })
+        .catch(function (error) {
+            console.log('ERROR:' + error);
+        })
+
     console.log('UPDATE : ' + sql);
     res.redirect('/products');
 
