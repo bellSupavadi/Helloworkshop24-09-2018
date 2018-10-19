@@ -85,6 +85,7 @@ app.get('/products/:pid', function(req, res) {
         .catch(function(error){
             console.log('ERROR:'+error)
         })});
+        
         // Display all user
         app.get('/users', function (req, res) {
             db.any('select * from users', )

@@ -1,32 +1,4 @@
-<% include ../partials/header %>
-
-<table class="table">
-    <thead>
-        <tr>
-                <th>ID</th>
-                <th>Tittle</th>
-                <th>Price</th>
-                <th>E-dit</th>
-                <th>DELECT</th>
-        </tr>
-    </thead>
-    <tbody>
-     <% products.forEach(function(product){ %>
-        <tr>
-            <td scope="row"><%=product.id %></td>
-            <td><%=product.title %></td>
-            <td><%=product.price %></td>
-        </tr>
-      <% }); %>
-    </tbody>
-</table>
-
-
-
-
-
-  <% include ../partials/footer %>
-<!-- <% include ../partials/header %>
+% include ../partials/header %>
 
 <table class="table">
     <thead>
@@ -41,11 +13,11 @@
     <tbody>
      <% products.forEach(function(product){ %>
         <tr>
-            <td scope="row"><%= product.id %></td>
-            <td><%= product.title %></td>
-            <td><%= product.price %></td>
-            <td><a name="" id="" class="btn btn-danger" href="products/<%= product.id %>" role="button">Edit</a></td>
-            <td><a name="" id="" class="btn btn-danger" href="product_delete/<%= product.id %>" role="button">DELECT</a></td>
+            <td scope="row"><%=product.id %></td>
+            <td><%=product.title %></td>
+            <td><%=product.price %></td>
+            <td><a name="" id="" class="btn btn-danger" href="products/<%=product.id %>" role="button">Edit</a></td>
+            <td><a name="" id="" class="btn btn-danger" href="product_delete/<%=product.id %>" role="button">DELECT</a></td>
         </tr>
       <% }); %>
     </tbody>
@@ -55,4 +27,4 @@
 
 
 
-  <% include ../partials/footer %> -->
+  <% include ../partials/footer %>
