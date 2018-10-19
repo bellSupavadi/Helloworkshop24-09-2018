@@ -122,25 +122,23 @@ app.post('/products/update', function (req, res) {
 })
 
 //Delete
-app.get('/products_delete/:pid', function (req, res) {
-    var id = req.params.pid;
+app.get('/products_delete/:pid',function (request, response) {
+    var id = request.param.id;
     var sql = 'DELETE FROM products';
-    if(id){
-        sql += 'where id ='+id;
+    if (id){
+            sql += ' where id ='+ id;
     }
     db.any(sql)
-        .then(function (data) {
-            console.log('DATA:' + data);
-            res.render('pages/products', { product: data })
-
+        .then(function(data){
+            console.log('DATA:'+data);
+            response.render('pages/products',{products : data});
+            
         })
-        .catch(function (error) {
-            console.log('ERROR:' + error);
-        })
-
-
-
-});
+        .catch(function(data){
+                console.log('ERROR:'+console.error);
+                
+    })
+ });
 
 
 // console.log('app is running at http://localhost:8080');
@@ -149,22 +147,3 @@ var port = process.env.PORT || 8080;
 app.listen(port, function () {
     console.log('App is running on http://localhost:' + port);
 });
-
-// app.post('/products/update', async (req, res) => {
-//     var id =req.body.id;
-// var title =req.body.title;
-// var price =req.body.price;
-// var sql=`update products set title=${title},price=${price} where id=${id}`;
-
-//     try {
-//       const client = await pool.connect()
-//       const result = await client.query(sql);
-//       //const results = { 'results': (result) ? result.rows : null};
-//       //res.render('pages/db', results );
-//       res.send("test");
-//       client.end();
-//     } catch (err) {
-//       console.error(err);
-//       res.send("Error " + err);
-//     }
-//   })
