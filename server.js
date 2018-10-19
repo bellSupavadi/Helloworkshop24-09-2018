@@ -104,6 +104,26 @@ app.get('/users', function (req, res) {
 });
 
 
+// Add new product
+app.get('/products', function (req, res) {
+    var pid = req.params.pid;
+    var sql = 'INSERT INTO products ' + pi;
+    db.any(sql)
+        .then(function (data) {
+            console.log('DATA:' + data);
+            res.render('pages/addProducts', { product: data })
+
+        })
+        .catch(function (error) {
+            console.log('ERROR:' + error);
+        })
+
+
+
+});
+
+
+
 //update
 app.post('/products/update', function (req, res) {
     var id = req.body.id;
