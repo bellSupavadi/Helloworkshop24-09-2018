@@ -127,7 +127,7 @@ app.get('/products_delete/:pid', function (req, res) {
     db.any(sql)
         .then(function (data) {
             console.log('DATA:' + data);
-            res.render('pages/products', { product: data[0] })
+            res.render('pages/products', { product: data })
 
         })
         .catch(function (error) {
