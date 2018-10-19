@@ -23,7 +23,7 @@ app.get('/about', function (req, res) {
 });
 
 
-// Display all products
+// Display all products/pid
 app.get('/products/:pid', function (req, res) {
     var pid = req.params.pid;
     var sql = 'select* from products where id =' + pid;
@@ -70,7 +70,7 @@ app.get('/products', function (req, res) {
 
 
 
-// Display all user
+// Display all user/id
 app.get('/users/:id', function (req, res) {
     var id = req.param('id');
     var sql = 'select * from users';
@@ -104,23 +104,7 @@ app.get('/users', function (req, res) {
 });
 
 
-// Add new product
-// app.get('/products', function (req, res) {
-//     var pid = req.params.pid;
-//     var sql = 'INSERT INTO products ' + pi;
-//     db.any(sql)
-//         .then(function (data) {
-//             console.log('DATA:' + data);
-//             res.render('pages/addProducts', { product: data })
 
-//         })
-//         .catch(function (error) {
-//             console.log('ERROR:' + error);
-//         })
-
-
-
-// });
 
 
 
