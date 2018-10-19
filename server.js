@@ -43,22 +43,22 @@ app.get('/products/:pid', function (req, res) {
 
 
 
-//Display all products
-app.get('/products', function (req, res) {
-    var id = request.param('id');
-    var sql = 'select* from products';
-    if (id) {
-        sql += ' where id =' + id;
-    }
-    db.any(sql)
-        .then(function (data) {
-            console.log('DATA:' + data);
-            res.render('pages/products', { products: data });
-
-        })
-        .catch(function (error) {
-            console.log('ERROR:' + console.error);
-        })
+///Display all products
+app.get('/products', function(req, res) {
+    var id = req.param('id');
+    var sql='select* from products';
+        if(id){
+            sql += ' where id ='+id;
+        }
+   db.any(sql)
+    .then(function(data){
+        console.log('DATA:'+data);
+        res.render('pages/products',{products: data})
+        
+    })
+    .catch(function(error){
+        console.log('ERROR:'+error);
+    })
 
 });
 
