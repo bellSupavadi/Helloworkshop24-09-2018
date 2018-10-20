@@ -104,11 +104,11 @@ app.get('/users/:id', function(req, res) {
 //add Product
 app.get('/Newinsert',function (req, res) {
     res.render('pages/insert'); 
-});
+})
 app.post('/insert', function (req, res) {
     var id = req.body.id;
-    var email = req.body.email;
-    var password = req.body.password;
+    var title = req.body.title;
+    var price = req.body.price;
     var sql = `INSERT INTO products (id,title, price)
     VALUES ('${id}', '${title}', '${price}')`;
     //db.none
