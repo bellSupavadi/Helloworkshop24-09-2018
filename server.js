@@ -102,7 +102,7 @@ app.get('/users/:id', function(req, res) {
 });
 
 //add Product
-app.get('/Newinsert',function (request, response) {
+app.get('/Newinsert',function (req, res) {
     res.render('pages/insert'); 
 });
 app.post('/insert', function (req, res) {
@@ -110,7 +110,7 @@ app.post('/insert', function (req, res) {
     var email = req.body.email;
     var password = req.body.password;
     var sql = `INSERT INTO products (id,title, price)
-    VALUES (${id}, '${title}', ${price})`;
+    VALUES ('${id}', '${title}', '${price}')`;
     //db.none
     console.log('UPDATE:' + sql);
     db.any(sql)
