@@ -109,20 +109,21 @@ app.post('/insert', function (req, res) {
     var id = req.body.id;
     var email = req.body.email;
     var password = req.body.password;
-    var sql = `INSERT INTO users (id, email, password)
-    VALUES ('${id}', '${email}', '${password}')`;
+    var sql = `INSERT INTO products (id,title, price)
+    VALUES (${id}, '${title}', ${price})`;
     //db.none
     console.log('UPDATE:' + sql);
     db.any(sql)
         .then(function (data) {
             console.log('DATA:' + data);
-            res.redirect('/users')
+            res.redirect('/products')
         })
 
         .catch(function (error) {
             console.log('ERROR:' + error);
         })
 });
+
 //update
 app.post('/products/update',function (req, res) {
 var id =req.body.id;
