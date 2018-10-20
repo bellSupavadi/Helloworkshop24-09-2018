@@ -168,7 +168,7 @@ app.post('/users/insert_user', function (req,res) {
     var sql = `INSERT INTO users (id,email,password)
     VALUES ('${id}', '${email}', '${password}')`;
     //db.none
-    // console.log('UPDATE:' + sql);
+     console.log('UPDATE:' + sql);
     db.any(sql)
         .then(function (data) {
             console.log('DATA:' + data);
@@ -179,7 +179,7 @@ app.post('/users/insert_user', function (req,res) {
             console.log('ERROR:' + error);
         })
 });
-//update
+//update product
 app.post('/products/update',function (req, res) {
 var id =req.body.id;
 var title =req.body.title;
@@ -192,6 +192,19 @@ db.query(sql);
 db.close();
 })
 
+//update users
+app.post('/users/update',function (req,res) {
+    var id =req.body.id;
+    var email =req.body.email;
+    var password =req.body.password;
+    var sql=`update users set email='${email}',password='${password}' where id=${id}`;
+    // res.send(sql)
+    //db.none
+    db.query(sql);
+        res.redirect('/users')    
+    db.close();
+    })
+    
 
 
 
