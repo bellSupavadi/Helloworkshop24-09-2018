@@ -102,7 +102,7 @@ app.get('/users/:id', function(req, res) {
 });
 
 //add Product
-app.get('/Newinsert',function (req, res) {
+app.get('/insert',function (req, res) {
     res.render('pages/insert'); 
 })
 app.post('/insert', function (req, res) {
