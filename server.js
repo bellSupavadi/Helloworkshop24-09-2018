@@ -59,6 +59,7 @@ app.get('/products', function(req, res) {
     })
 
 });
+
 // Display all user
 app.get('/users/:id', function(req, res) {
     var id =req.params.id;
