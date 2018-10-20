@@ -1,17 +1,8 @@
 <% include ../partials/header %>
 <h2>Filterable Table</h2>
-  <p>Type something in the input field to search the table for first names, last names or emails:</p>  
+  
   <input class="form-control" id="myInput" type="text" placeholder="Search..">
-  <script language="JavaScript">
-        function chkConfirm(){
-          if(confirm('Do you want to delete product')==true){
-            window.location = "/products/<%= product.id %>";
-            
-         }else{
-          return(null);
-        }
-      }
-      </script>
+ 
 <table class="table">
     <thead>
         <tr>
@@ -48,7 +39,16 @@
         });
         </script>
 
-
+ <script language="JavaScript">
+        function chkConfirm(){
+          if(confirm('Do you want to delete product')==true){
+            window.location = "/product_delete";
+            
+         }else{
+          return(null);
+        }
+      }
+      </script>
 
 
   <% include ../partials/footer %>
