@@ -116,10 +116,10 @@ app.get('/users/:id', function(req, res) {
 });
 
 //add Product
-app.get('/insert',function (req, res) {
-    res.render('pages/insert'); 
+app.get('/insert_product',function (req, res) {
+    res.render('pages/insert_product'); 
 })
-app.post('/products/insert', function (req, res) {
+app.post('/products/insert_product', function (req, res) {
     var id = req.body.id;
     var title = req.body.title;
     var price = req.body.price;
