@@ -62,17 +62,16 @@ app.get('/products', function(req, res) {
 
 
 //delete
-
-app.get('/product_delete/:pid',function (req,res) {
-    var pid = req.param.pid;
+app.get('/product_delete/:pid',function (req, res) {
+    var id = req.params.pid;
     var sql = 'DELETE FROM products';
     if (id){
-            sql += ' where id ='+ pid;
+            sql += ' where id ='+ id;
     }
     db.any(sql)
         .then(function(data){
             console.log('DATA:'+data);
-            res.render('pages/products',{product: data[0]});
+            res.redirect('/products')
             
         })
         .catch(function(data){
@@ -80,7 +79,6 @@ app.get('/product_delete/:pid',function (req,res) {
                 
     })
  });
-
 
 
 
