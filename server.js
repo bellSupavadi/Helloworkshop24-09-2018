@@ -114,23 +114,23 @@ db.query(sql);
     res.redirect('/products')    
 db.close();
 })
-// app.get('/product_delete/:pid',function (request, response) {
-//     var id = request.param.id;
-//     var sql = 'DELETE FROM products';
-//     if (id){
-//             sql += ' where id ='+ id;
-//     }
-//     db.any(sql)
-//         .then(function(data){
-//             console.log('DATA:'+data);
-//             response.render('pages/products',{products : data});
+app.get('/product_delete/:pid',function (request, response) {
+    var id = request.param.id;
+    var sql = 'DELETE FROM products';
+    if (id){
+            sql += ' where id ='+ id;
+    }
+    db.any(sql)
+        .then(function(data){
+            console.log('DATA:'+data);
+            response.render('pages/products',{products : data});
             
-//         })
-//         .catch(function(data){
-//                 console.log('ERROR:'+console.error);
+        })
+        .catch(function(data){
+                console.log('ERROR:'+console.error);
                 
-//     })
-//  });
+    })
+ });
 
 
 
