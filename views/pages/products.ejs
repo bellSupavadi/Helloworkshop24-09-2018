@@ -1,6 +1,8 @@
 <% include ../partials/header %>
+<h2>Filterable Table</h2>
+  <p>Type something in the input field to search the table for first names, last names or emails:</p>  
+  <input class="form-control" id="myInput" type="text" placeholder="Search..">
 
-<input class="form-control" id="myInput" type="text" placeholder="Search..">
 <table class="table">
     <thead>
         <tr>
@@ -12,7 +14,7 @@
             <th><a  class="btn btn-danger" href="/insert" role="button">New Product</a></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="myTable">
      <% products.forEach(function(product){ %>
         <tr>
             <td scope="row"><%= product.id %></td>
