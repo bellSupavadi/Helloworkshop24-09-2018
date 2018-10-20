@@ -29,7 +29,7 @@ var sql = 'select* from products where id ='+pid;
 db.any(sql)
 .then(function(data){
     console.log('DATA:'+data);
-    res.render('pages/product_edit',{product: data[0]})
+    res.render('pages/product_edit',{products: data[0]})
     
 })
 .catch(function(error){
@@ -52,7 +52,7 @@ app.get('/products', function(req, res) {
    db.any(sql)
     .then(function(data){
         console.log('DATA:'+data);
-        res.render('pages/products',{product: data})
+        res.render('pages/products',{products: data})
         
     })
     .catch(function(error){
@@ -64,11 +64,11 @@ app.get('/products', function(req, res) {
 
 //delete
 
-app.get('/product_delete/:id',function (req, res) {
-    var id = req.param.id;
+app.get('/product_delete/:pid',function (req,res) {
+    var pid = req.param.pid;
     var sql = 'DELETE FROM products';
-    if (id){
-            sql += ' where id ='+ id;
+    if (pid){
+            sql += ' where id ='+ pid;
     }
     db.any(sql)
         .then(function(data){
