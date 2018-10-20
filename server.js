@@ -64,15 +64,15 @@ app.get('/products', function(req, res) {
 //delete
 
 app.get('/product_delete/:pid',function (req,res) {
-    var id = req.param.pid;
+    var pid = req.param.pid;
     var sql = 'DELETE FROM products';
     if (id){
-            sql += ' where id ='+ id;
+            sql += ' where id ='+ pid;
     }
     db.any(sql)
         .then(function(data){
             console.log('DATA:'+data);
-            res.render('/products');
+            res.render('pages/products');
             
         })
         .catch(function(data){
