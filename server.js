@@ -101,7 +101,28 @@ app.get('/users/:id', function(req, res) {
     
 });
 
+//add Product
+app.get('/Newinsert',function (request, response) {
+    res.render('pages/insert'); 
+});
+app.post('/insert', function (req, res) {
+    var id = req.body.id;
+    var email = req.body.email;
+    var password = req.body.password;
+    var sql = `INSERT INTO users (id, email, password)
+    VALUES ('${id}', '${email}', '${password}')`;
+    //db.none
+    console.log('UPDATE:' + sql);
+    db.any(sql)
+        .then(function (data) {
+            console.log('DATA:' + data);
+            res.redirect('/users')
+        })
 
+        .catch(function (error) {
+            console.log('ERROR:' + error);
+        })
+});
 //update
 app.post('/products/update',function (req, res) {
 var id =req.body.id;
@@ -114,6 +135,7 @@ db.query(sql);
     res.redirect('/products')    
 db.close();
 })
+
 app.get('/product_delete/:pid',function (request, response) {
     var id = request.param.id;
     var sql = 'DELETE FROM products';
