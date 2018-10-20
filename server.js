@@ -59,6 +59,34 @@ app.get('/products', function(req, res) {
     })
 
 });
+// Display all user
+app.get('/users/:id', function(req, res) {
+    var id =req.params.id;
+    var sql = "select * from users where id= " + id;
+    db.any(sql)
+        .then(function (data) {
+            console.log('DATA:' + data);
+            res.render('pages/user_edit', { user: data[0] })
+
+        })
+        .catch(function (error) {
+            console.log('ERROR:' + error);
+        })
+    });
+
+ // Display all user
+    app.get('/users', function (req, res) {
+        db.any('select * from users', )
+            .then(function (data) {
+                console.log('DATA' + data);
+                res.render('pages/users', { users: data })
+    
+            })
+            .catch(function (error) {
+                console.log('ERROR:' + error);
+            })
+    
+});
 
 
 //delete products
@@ -79,6 +107,7 @@ app.get('/product_delete/:pid',function (req, res) {
                 
     })
  });
+
 
  //delete users
 app.get('/user_delete/:pid',function (req, res) {
@@ -103,37 +132,6 @@ app.get('/user_delete/:pid',function (req, res) {
 
 
 
-// Display all user
-app.get('/users/:id', function(req, res) {
-    var id=req.param('id');
-    var sql = 'select * from users';
-    if(id){
-        sql+=' where id ='+id;
-    }
-    db.any(sql)
-    .then(function(data){
-    console.log('DATA:'+data);
-    res.render('pages/users',{users : data})
-
-    })
-    .catch(function(error){
-        console.log('ERROR:'+error)
-    })});
-
-
- // Display all user
-    app.get('/users', function (req, res) {
-        db.any('select * from users', )
-            .then(function (data) {
-                console.log('DATA' + data);
-                res.render('pages/users', { users: data })
-    
-            })
-            .catch(function (error) {
-                console.log('ERROR:' + error);
-            })
-    
-});
 
 //add Product
 app.get('/insert_product',function (req, res) {
