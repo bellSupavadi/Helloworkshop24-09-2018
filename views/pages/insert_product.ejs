@@ -1,7 +1,7 @@
 <% include ../partials/header %>
- <div class="jumbotron">
+
  <form action="/products/insert_product" method="post">
- 
+  <div class="jumbotron">
   <center> <h4>NEW PRODUCT</h4></center>
    <br>
 <div class="form-group">
@@ -31,9 +31,9 @@
         class="form-control" value="<%= time %>" name="time" id="" aria-describedby="helpId" placeholder="" >
       <!-- <small id="helpId" class="form-text text-muted">create at</small> -->
     </div>
-    
-    <button type="submit" class="btn btn-success">Save</button>
-    <a name="" id="" class="btn btn-secondary" href="/products" role="button">Cancel</a>
- 
-</from> </div>
+    <br>
+   <center> <button type="submit" class="btn btn-success">Save</button>
+    <a name="" id="" class="btn btn-secondary" href="/products" role="button">Cancel</a></center>
+ </div>
+</from> 
   <% include ../partials/footer %>

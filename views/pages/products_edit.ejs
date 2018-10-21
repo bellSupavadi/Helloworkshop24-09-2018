@@ -1,9 +1,9 @@
 <% include ../partials/header %>
   
   <form action ="/products/update" method ="post">
-    
-        <h4>PRODUCT EDIT</h4>
-        <div class="jumbotron">
+    <div class="jumbotron">
+      <center>  <h4>PRODUCT EDIT</h4></center>
+        <br>
   <div class="form-group">
     <label for="">Product ID</label>
     <input type="number"
@@ -31,9 +31,9 @@
       class="form-control" value="<%= time %>" name="time" id="" aria-describedby="helpId" placeholder="" >
     <small id="helpId" class="form-text text-muted">create at</small>
   </div>
-
-<button type="submit" class="btn btn-success">Save</button>
-<button type="submit" class="btn ">Cancer</button>
+<br>
+<center><button type="submit" class="btn btn-success">Save</button>
+<button type="submit" class="btn ">Cancer</button></center>
 </div>
 </form>
 

@@ -2,7 +2,8 @@
 
  <form action="/users/insert_user" method="post">
   <div class="jumbotron">
-      <h4>NEW USER</h4>
+   <center>  <h4>NEW USER</h4></center> 
+   <br>
 <div class="form-group">
   <label for="id">UserID</label>
   <input type="number"
@@ -30,9 +31,9 @@
         class="form-control" value="<%= time %>" name="time" id="" aria-describedby="helpId" placeholder="" >
       <!-- <small id="helpId" class="form-text text-muted">create at</small> -->
     </div>
-
-    <button type="submit" class="btn btn-success">Save</button>
-    <a name="" id="" class="btn btn-secondary" href="/users" role="button">Cancel</a>
+<br>
+   <center> <button type="submit" class="btn btn-success">Save</button>
+    <a name="" id="" class="btn btn-secondary" href="/users" role="button">Cancel</a></center>
 </div>
 </from>
   <% include ../partials/footer %>
