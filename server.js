@@ -27,13 +27,13 @@ app.get('/about', function(req, res) {
 //GET products pid
 app.get('/products/:pid', function (req, res) {
     var pid = req.params.pid;
-    var times = moment().format('MMMM Do YYYY, h:mm:ss a');
+    var time = moment().format('MMMM Do YYYY, h:mm:ss a');
     var sql = "select * from products where id= " + pid;
     db.any(sql)
     
         .then(function (data) {
             //console.log('DATA:' + data);
-            res.render('pages/products_edit', { product: data[0] ,time:times})
+            res.render('pages/products_edit', { product: data[0] ,time:time})
 
         })
         .catch(function (error) {
