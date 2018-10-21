@@ -220,7 +220,7 @@ app.post('/users/update',function (req,res) {
     db.close();
     })
     //report Products
-    app.get('/report_Product', function (req, res) {
+    app.get('/report_product', function (req, res) {
         var id = req.param('id');
         var sql = 'select* from products ORDER BY Price DESC liasmit 10';
         if (id) {
