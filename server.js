@@ -31,7 +31,7 @@ app.get('/products/:pid', function (req, res) {
     var sql = "select * from products where id= " + pid;
     db.any(sql)
         .then(function (data) {
-            console.log('DATA:' + data);
+            //console.log('DATA:' + data);
             res.render('pages/products_edit', { product: data[0] ,time:times})
 
         })
