@@ -50,9 +50,9 @@ app.get('/products', function(req, res) {
     var id = req.param('id');
     var sql='select* from products';
         if(id){
-            sql += ' where id ='+id+'ORDER BY id ASC';
+            sql += ' where id ='+id;
         }
-   db.any(sql+'ORDER BY id ASC')
+   db.any(sql)
     .then(function(data){
         console.log('DATA:'+data);
         res.render('pages/products',{products: data})
