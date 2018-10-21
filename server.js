@@ -222,7 +222,7 @@ app.post('/users/update',function (req,res) {
     //report Products
     app.get('/report_product', function (req, res) {
         var id = req.param('id');
-        var sql = 'select* from products ORDER BY Price DESC limit 10';
+        var sql = 'select title,price from products ORDER BY Price DESC limit 5';
         if (id) {
             sql += ' where id =' + id;
         }
@@ -239,7 +239,7 @@ app.post('/users/update',function (req,res) {
     });
     //report user
     app.get('/report_user', function (req, res) {
-        db.any('select * from users ORDER BY  email ASC', )
+        db.any('SELECT id,email,total_sale FROM users ORDER BY total_sale DESC limit 10' )
             .then(function (data) {
                 console.log('DATA' + data);
                 res.render('pages/report_user', { users: data })

@@ -1,13 +1,13 @@
 <% include ../partials/header %>
 
  <br>
- <h2>Sorter By A-Z</h2>
+ <h2>TOP 10 USER BY TOTAL SALE</h2>
 <table class="table">
     <thead>
         <tr>
             <th>ID</th>
             <th>E-mail</th>
-            <th>Password</th>
+            <th>Total Sale</th>
         </tr>
     </thead>
     <tbody id="myTable">
@@ -15,7 +15,7 @@
         <tr>
             <td scope="row"><%= user.id %></td>
             <td><%= user.email %></td>
-            <td><%= user.password %></td>
+            <td><%= user.total_sale %></td>
         </tr>
       <% }); %>
     </tbody>
