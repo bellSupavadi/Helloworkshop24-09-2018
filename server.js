@@ -50,9 +50,9 @@ app.get('/products', function(req, res) {
     var id = req.param('id');
     var sql='select* from products';
         if(id){
-            sql += ' where id ='+id;
+            sql += ' where id ='+id+'ORDER BY id ASC';
         }
-   db.any(sql)
+   db.any(sql+'ORDER BY id ASC')
     .then(function(data){
         console.log('DATA:'+data);
         res.render('pages/products',{products: data})
@@ -67,11 +67,13 @@ app.get('/products', function(req, res) {
 // Display all user
 app.get('/users/:id', function(req, res) {
     var id =req.params.id;
+    var time = moment().format('MMMM Do YYYY, h:mm:ss a');
     var sql = "select * from users where id= " + id;
     db.any(sql)
         .then(function (data) {
             console.log('DATA:' + data);
-            res.render('pages/user_edit', { user: data[0] })
+            
+            res.render('pages/user_edit', { user: data[0] ,time:time})
 
         })
         .catch(function (error) {
