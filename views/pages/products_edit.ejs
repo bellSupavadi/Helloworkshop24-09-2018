@@ -1,25 +1,28 @@
 <% include ../partials/header %>
   
   <form action ="/products/update" method ="post">
+    
+        <h4>PRODUCT EDIT</h4>
+        <div class="jumbotron">
   <div class="form-group">
-    <label for="">ID</label>
+    <label for="">Product ID</label>
     <input type="number"
       class="form-control"value ="<%= product.id %>" name="id" id="" aria-describedby="helpId" placeholder="">
-    <small id="helpId" class="form-text text-muted">Product ID</small>
+    <!-- <small id="helpId" class="form-text text-muted">Product ID</small> -->
   </div>
 
 <div class="form-group">
-    <label for="">Title</label>
+    <label for="">Product Name</label>
     <input type="text"
       class="form-control" value ="<%= product.title %>"name="title" id="" aria-describedby="helpId" placeholder="">
-    <small id="helpId" class="form-text text-muted">Product</small>
+    <!-- <small id="helpId" class="form-text text-muted">Product</small> -->
   </div>
 
 <div class="form-group">
-    <label for="">Price</label>
+    <label for="">Product Price</label>
     <input type="number"
       class="form-control" value = "<%= product.price %>"name="price" id="" aria-describedby="helpId" placeholder="">
-    <small id="helpId" class="form-text text-muted">Product price</small>
+    <!-- <small id="helpId" class="form-text text-muted">Product price</small> -->
   </div>
 
   <div class="form-group">
@@ -31,6 +34,7 @@
 
 <button type="submit" class="btn btn-success">Save</button>
 <button type="submit" class="btn ">Cancer</button>
+</div>
 </form>
 
  <% include ../partials/footer %>

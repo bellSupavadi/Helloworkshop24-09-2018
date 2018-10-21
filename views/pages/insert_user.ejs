@@ -1,36 +1,38 @@
 <% include ../partials/header %>
 
  <form action="/users/insert_user" method="post">
+  <div class="jumbotron">
+      <h4>NEW USER</h4>
 <div class="form-group">
-  <label for="id">ID</label>
+  <label for="id">UserID</label>
   <input type="number"
     class="form-control" name="id" id="" aria-describedby="helpId" placeholder=""value="">
-  <small id="helpId" class="form-text text-muted">User ID</small>
+  <!-- <small id="helpId" class="form-text text-muted">User ID</small> -->
 </div>
 
   <div class="form-group">
-    <label for="Email">Email</label>
+    <label for="Email">E-mail</label>
     <input type="email"
       class="form-control" name="email" id="" aria-describedby="helpId" placeholder=""value="">
-    <small id="helpId" class="form-text text-muted">Email</small>
+    <!-- <small id="helpId" class="form-text text-muted">Email</small> -->
   </div>
 
   <div class="form-group">
     <label for=" ">Password</label>
     <input type="text"
       class="form-control" name="password" id="" aria-describedby="helpId" placeholder=""value="">
-    <small id="helpId" class="form-text text-muted">Password</small>
+    <!-- <small id="helpId" class="form-text text-muted">Password</small> -->
     </div>
     
     <div class="form-group">
       <label for="">Create At</label>
       <input type="text"
         class="form-control" value="<%= time %>" name="time" id="" aria-describedby="helpId" placeholder="" >
-      <small id="helpId" class="form-text text-muted">create at</small>
+      <!-- <small id="helpId" class="form-text text-muted">create at</small> -->
     </div>
 
     <button type="submit" class="btn btn-success">Save</button>
     <a name="" id="" class="btn btn-secondary" href="/users" role="button">Cancel</a>
-
+</div>
 </from>
   <% include ../partials/footer %>
