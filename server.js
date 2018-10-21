@@ -178,8 +178,8 @@ app.post('/users/insert_user', function (req,res) {
     var sql = `INSERT INTO users (id,email,password,created_at)
     VALUES ('${id}', '${email}', '${password}',, '${time}')`;
     //db.none
-    res.send(sql);
-     console.log('UPDATE:' + sql);
+    // res.send(sql);
+    //  console.log('UPDATE:' + sql);
     db.any(sql)
         .then(function (data) {
             console.log('DATA:' + data);
