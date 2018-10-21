@@ -1,14 +1,14 @@
 <% include ../partials/header %>
-
+ <div class="jumbotron">
  <form action="/products/insert_product" method="post">
-  <div class="jumbotron">
+ 
   <center> <h4>NEW PRODUCT</h4></center>
    <br>
 <div class="form-group">
-  <label for="id">ID</label>
+  <label for="id">Product ID</label>
   <input type="number"
     class="form-control" name="id" id="" aria-describedby="helpId" placeholder=""value="">
-  <small id="helpId" class="form-text text-muted">Product ID</small>
+  <!-- <small id="helpId" class="form-text text-muted">Product ID</small> -->
 </div>
 
   <div class="form-group">
@@ -34,6 +34,6 @@
     
     <button type="submit" class="btn btn-success">Save</button>
     <a name="" id="" class="btn btn-secondary" href="/products" role="button">Cancel</a>
-  </div>
-</from>
+ 
+</from> </div>
   <% include ../partials/footer %>
