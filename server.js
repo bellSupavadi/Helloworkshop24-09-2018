@@ -170,26 +170,7 @@ app.get('/insert_user',function (req, res) {
     var time = moment().format();
     res.render('pages/insert_user', { time: time}); 
 })
-app.post('/users/insert_user', function (req,res) {
-    var id = req.body.id;
-    var email = req.body.email;
-    var password = req.body.password;
-    var time = req.body.time;
-    var sql = `INSERT INTO users (id,email,password,created_at)
-    VALUES ('${id}', '${email}', '${password}',, '${time}')`;
-    //db.none
-    // res.send(sql);
-     console.log('UPDATE:' + sql);
-    db.any(sql)
-        .then(function (data) {
-            console.log('DATA:' + data);
-            res.redirect('/users')
-        })
 
-        .catch(function (error) {
-            console.log('ERROR:' + error);
-        })
-});
 //update product
 app.post('/products/update',function (req, res) {
 var id =req.body.id;
