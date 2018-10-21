@@ -30,6 +30,7 @@ app.get('/products/:pid', function (req, res) {
     var times = moment().format('MMMM Do YYYY, h:mm:ss a');
     var sql = "select * from products where id= " + pid;
     db.any(sql)
+    
         .then(function (data) {
             //console.log('DATA:' + data);
             res.render('pages/products_edit', { product: data[0] ,time:times})
