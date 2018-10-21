@@ -192,7 +192,7 @@ var sql=`update products set title='${title}',price=${price} where id=${id}`;
 db.query(sql);
     res.redirect('/products')    
 db.close();
-})
+}) 
 
 //update users
 app.post('/users/update',function (req,res) {
