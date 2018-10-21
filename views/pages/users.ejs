@@ -9,7 +9,7 @@
             <th>ID</th>
             <th>E-mail</th>
             <th>Password</th>
-            <th><a  class="btn btn-danger" href="/insert_user" role="button">New User</a></th>
+            <th><a  class="btn btn-success" href="/insert_user" role="button">New User</a></th>
         </tr>
     </thead>
     <tbody id="myTable">
@@ -18,7 +18,7 @@
             <td scope="row"><%= user.id %></td>
             <td><%= user.email %></td>
             <td><%= user.password %></td>
-            <td><a name="" id="" class="btn btn-danger" href="/users/<%= user.id %>" role="button">Edit</a></td>
+            <td><a name="" id="" class="btn btn-info" href="/users/<%= user.id %>" role="button">Edit</a></td>
             
             <td><a name="btnConfirm" value="Confirm"  class="btn btn-danger" href="/user_delete/<%= user.id %>" onclick="return confirm('Are you sure you want to delete?')"role="button">DELETE</a></td>
         </tr>
