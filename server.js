@@ -127,7 +127,7 @@ app.get('/user_delete/:pid',function (req, res) {
     var user_id = req.params.user_id;
     var sql = 'DELETE FROM users';
     if (user_id){
-            sql += ' where id ='+ user_id;
+            sql += ' where user_id ='+ user_id;
     }
     db.any(sql)
         .then(function(data){
@@ -177,7 +177,7 @@ app.get('/insert_user',function (req, res) {
     res.render('pages/insert_user', { time: time}); 
 })
 app.post('/users/insert_user', function (req, res) {
-    var iuser_id = req.body.user_id;
+    var user_id = req.body.user_id;
     var email =req.body.email;
     var password =req.body.password;
     var time =req.body.time;
