@@ -68,7 +68,7 @@ app.get('/products', function(req, res) {
 app.get('/users/:id', function(req, res) {
     var user_id =req.params.user_id;
     var time = moment().format('MMMM Do YYYY, h:mm:ss a');
-    var sql = "select * from users where id= " + user_id;
+    var sql = "select * from users where user_id= " + user_id;
     db.any(sql)
         .then(function (data) {
             console.log('DATA:' + data);
