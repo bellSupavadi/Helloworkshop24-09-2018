@@ -209,10 +209,10 @@ db.close();
 
 //update users
 app.post('/users/update',function (req,res) {
-    var user_id =req.body.user_id;
+    var id =req.body.id;
     var email =req.body.email;
     var password =req.body.password;
-    var sql=`update users set email='${email}',password='${password}' where user_id=${user_id}`;
+    var sql=`update users set email='${email}',password='${password}' where user_id=${id}`;
     // res.send(sql)
     //db.none
     db.query(sql);
