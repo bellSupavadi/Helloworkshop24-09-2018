@@ -66,9 +66,9 @@ app.get('/products', function(req, res) {
 
 // Display all user
 app.get('/users/:id', function(req, res) {
-    var id =req.params.id;
+    var user_id =req.params.user_id;
     var time = moment().format('MMMM Do YYYY, h:mm:ss a');
-    var sql = "select * from users where id= " + id;
+    var sql = "select * from users where id= " + user_id;
     db.any(sql)
         .then(function (data) {
             console.log('DATA:' + data);
@@ -83,10 +83,10 @@ app.get('/users/:id', function(req, res) {
 
  // Display all user
  app.get('/users', function(req, res) {
-    var id = req.params.id;
+    var user_id = req.params.user_id;
     var sql = 'select * from users';
-    if(id){
-        sql += ' where id ='+ id +' order by id ASC';
+    if(user_id){
+        sql += ' where id ='+ user_id +' order by id ASC';
     }
   
    db.any(sql +' order by id ASC')
@@ -124,10 +124,10 @@ app.get('/product_delete/:pid',function (req, res) {
 
  //delete users
 app.get('/user_delete/:pid',function (req, res) {
-    var id = req.params.pid;
+    var user_id = req.params.user_id;
     var sql = 'DELETE FROM users';
-    if (id){
-            sql += ' where id ='+ id;
+    if (user_id){
+            sql += ' where id ='+ user_id;
     }
     db.any(sql)
         .then(function(data){
@@ -177,11 +177,11 @@ app.get('/insert_user',function (req, res) {
     res.render('pages/insert_user', { time: time}); 
 })
 app.post('/users/insert_user', function (req, res) {
-    var id = req.body.id;
+    var iuser_id = req.body.user_id;
     var email =req.body.email;
     var password =req.body.password;
     var time =req.body.time;
-    var sql = `INSERT INTO users (id,email,password,created_at) VALUES ('${id}', '${email}', '${password}', '${time}')`;
+    var sql = `INSERT INTO users (user_id,email,password,created_at) VALUES ('${user_id}', '${email}', '${password}', '${time}')`;
     //db.none
     console.log('UPDATE:' + sql);
     db.any(sql)
@@ -209,46 +209,46 @@ db.close();
 
 //update users
 app.post('/users/update',function (req,res) {
-    var id =req.body.id;
+    var user_id =req.body.user_id;
     var email =req.body.email;
     var password =req.body.password;
-    var sql=`update users set email='${email}',password='${password}' where id=${id}`;
+    var sql=`update users set email='${email}',password='${password}' where user_id=${user_id}`;
     // res.send(sql)
     //db.none
     db.query(sql);
         res.redirect('/users')    
     db.close();
     })
+
     //report Products
     app.get('/report_product', function (req, res) {
-        var id = req.param('id');
-        var sql = 'select title,price from products ORDER BY Price DESC limit 5';
-        if (id) {
-            sql += ' where id =' + id;
-        }
-        db.any(sql)
-            .then(function (data) {
-                console.log('DATA:' + data);
-                res.render('pages/report_product', { products: data })
-    
-            })
-            .catch(function (error) {
-                console.log('ERROR:' + error);
-            })
-    
+        var sql ='select products.product_id,products.title,sum(purchase_items.quantity) as quantity,sum(purchase_items.price) as price from products inner join purchase_items on purchase_items.product_id=products.product_id group by products.product_id;select sum(quantity) as squantity,sum(price) as sprice from purchase_items';
+    db.multi(sql)
+    .then(function  (data) 
+    {
+ 
+        // console.log('DATA' + data);
+        res.render('pages/report_product', { product: data[0],sum: data[1]});
+    })
+    .catch(function (data) 
+    {
+        console.log('ERROR' + error);
+    })
     });
+
     //report user
     app.get('/report_user', function (req, res) {
-        db.any('SELECT id,email,total_sale FROM users ORDER BY total_sale DESC limit 10' )
-            .then(function (data) {
-                console.log('DATA' + data);
-                res.render('pages/report_user', { users: data })
-    
-            })
-            .catch(function (error) {
-                console.log('ERROR:' + error);
-            })
-    
+        var sql='select purchases.user_id,purchases.name,users.email,sum(purchase_items.price) as price from purchases inner join users on users.user_id=purchases.user_id inner join purchase_items on purchase_items.purchase_id=purchases.purchase_id group by purchases.user_id,purchases.name,users.email order by sum(purchase_items.price) desc LIMIT 10;'
+    db.any(sql)
+        .then(function (data) 
+        {
+            // console.log('DATA' + data);
+            res.render('pages/report_user', { user : data });
+        })
+        .catch(function (data) 
+        {
+            console.log('ERROR' + error);
+        })
     });
 
 
