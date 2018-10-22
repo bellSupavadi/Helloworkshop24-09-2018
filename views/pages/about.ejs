@@ -1,15 +1,15 @@
 <% include ../partials/header %>
-<div class="jumbotron bg-gray text-white "  >
+<div class="jumbotron bg-gray  "  >
         <div class="container">
-    <h1><%=fullname%></h1>
+    <center><h1><%=fullname%></h1></center>
      
-    <h1> <ul>
+    <h3> <ul>
      <% hobbies.forEach(function(hobby){ %>
      <li><%= hobby %></li>
      
      <% }); %>
-     </ul></h1>
-    <h1><%=Birthday%></h1>
+     </ul></h3>
+    <h3><%=Birthday%></h3>
     
     
     <% include ../partials/footer %>

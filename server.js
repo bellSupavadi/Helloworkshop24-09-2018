@@ -3,9 +3,9 @@ var pgp = require('pg-promise')();
 // var db = pgp(process.env.DATABASE_URL);
 var db = pgp('postgres://qzwdfalyaqhdjf:f202bed3f53d1dc03b523853492dbfc397e1208f83d2e775b45f46c9652fe5bd@ec2-54-243-147-162.compute-1.amazonaws.com:5432/d70ueqr41e79i9?ssl=true');
 var app = express();
-var bodyParser = require('body-parser');//บังคับ
-app.use(bodyParser.json());//บังคับ
-app.use(bodyParser.urlencoded({ extended: true })); //บังคับ
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); 
 var moment = require('moment');
 moment().format();
 
@@ -18,7 +18,7 @@ app.get('/', function(req, res) {
     res.render('pages/index');
 });
 app.get('/about', function(req, res) {
-    var name = 'Supavadi'
+    var name = 'Supavadi Manasuwan'
     var hobbies = ['music','movie','programing']
     var bdate = '27/03/1997';
     res.render('pages/about',{fullname : name,hobbies : hobbies,Birthday : bdate});
