@@ -242,7 +242,7 @@ app.post('/users/update',function (req,res) {
         db.any(sql)
             .then(function (data) 
             {
-                console.log('DATA' + data);
+                //console.log('DATA' + data);
                 res.render('pages/report_user', { user : data });
             })
             .catch(function (data) 
