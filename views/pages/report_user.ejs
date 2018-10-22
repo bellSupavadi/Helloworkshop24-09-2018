@@ -1,7 +1,6 @@
 <% include ../partials/header %>
-
-<div class="jumbotron">
- <center><h1>TOP 10 USER BY TOTAL SALE</h1></center><br>
+&nbsp;
+<h1 class="text-center">Report:Top 25 Customers by Sales</h1>
 <table class="table">
     <thead>
         <tr>
@@ -22,19 +21,4 @@
         <% }); %>
     </tbody>
 </table>
-</div>
-<script>
-    $(document).ready(function(){
-      $("#myInput").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#myTable tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-    });
-    </script>
-
-
-
-
-  <% include ../partials/footer %>
+ <% include ../partials/footer %>
