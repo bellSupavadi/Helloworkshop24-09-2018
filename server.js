@@ -1,7 +1,7 @@
 var express = require('express');
 var pgp = require('pg-promise')();
 // var db = pgp(process.env.DATABASE_URL);
-var db = pgp('postgres://qzwdfalyaqhdjf:f202bed3f53d1dc03b523853492dbfc397e1208f83d2e775b45f46c9652fe5bd@ec2-54-243-147-162.compute-1.amazonaws.com:5432/d70ueqr41e79i9');
+var db = pgp('postgres://qzwdfalyaqhdjf:f202bed3f53d1dc03b523853492dbfc397e1208f83d2e775b45f46c9652fe5bd@ec2-54-243-147-162.compute-1.amazonaws.com:5432/d70ueqr41e79i9?ssl=true');
 var app = express();
 var bodyParser = require('body-parser');//บังคับ
 app.use(bodyParser.json());//บังคับ
@@ -23,36 +23,35 @@ app.get('/about', function(req, res) {
     var bdate = '27/03/1997';
     res.render('pages/about',{fullname : name,hobbies : hobbies,Birthday : bdate});
 });
-
-//GET products pid
-app.get('/products/:pid', function (req, res) {
+// Display all products
+app.get('/products/:pid', function(req, res) {
     var pid = req.params.pid;
-    var time = moment().format('MMMM Do YYYY, h:mm:ss a');
-    var sql = "select * from products where id= " + pid;
+    var time = moment().format();
+       
+        
+    var sql = 'select* from products where product_id ='+pid+'order by product_id ASC';
     db.any(sql)
+    .then(function(data){
+        console.log('DATA:'+data);
+        res.render('pages/products_edit',{product: data[0],time: time})
+        
+    })
+    .catch(function(error){
+        console.log('ERROR:'+error);
+    })
     
-        .then(function (data) {
-            //console.log('DATA:' + data);
-            res.render('pages/products_edit', { product: data[0] ,time:time})
-
-        })
-        .catch(function (error) {
-            console.log('ERROR:' + error);
-        })
-
-
-});
+    });
 
 
 
 //Display all products
 app.get('/products', function(req, res) {
-    var id = req.param('id');
+    var id = req.params.id;
     var sql='select* from products';
         if(id){
-            sql += ' where id ='+id +' order by id ASC';
+            sql += ' where product_id ='+id +' order by product_id ASC';
         }
-   db.any(sql+' order by id ASC')
+   db.any(sql+' order by product_id ASC')
     .then(function(data){
         console.log('DATA:'+data);
         res.render('pages/products',{products: data})
@@ -66,20 +65,21 @@ app.get('/products', function(req, res) {
 
 // Display all user
 app.get('/users/:id', function(req, res) {
-    var id =req.params.id;
-    var time = moment().format('MMMM Do YYYY, h:mm:ss a');
-    var sql = "select * from users where user_id= " +id;
+    var id=req.param('id');
+    var time = moment().format();
+    var sql = 'select * from users ';
+    if(id){
+        sql+=' where user_id ='+id;
+    }
     db.any(sql)
-        .then(function (data) {
-            console.log('DATA:' + data);
-            
-            res.render('pages/user_edit', { user: data[0] ,time:time})
+    .then(function(data){
+    console.log('DATA:'+data);
+    res.render('pages/user_edit',{ user: data[0],time:time})
 
-        })
-        .catch(function (error) {
-            console.log('ERROR:' + error);
-        })
-    });
+    })
+    .catch(function(error){
+        console.log('ERROR:'+error)
+    })});
 
  // Display all user
  app.get('/users', function(req, res) {
@@ -107,7 +107,7 @@ app.get('/product_delete/:pid',function (req, res) {
     var id = req.params.pid;
     var sql = 'DELETE FROM products';
     if (id){
-            sql += ' where id ='+ id;
+            sql += ' where product_id ='+ id;
     }
     db.any(sql)
         .then(function(data){
@@ -124,10 +124,10 @@ app.get('/product_delete/:pid',function (req, res) {
 
  //delete users
 app.get('/user_delete/:pid',function (req, res) {
-    var user_id = req.params.user_id;
+    var id = req.params.pid;
     var sql = 'DELETE FROM users';
-    if (user_id){
-            sql += ' where user_id ='+ user_id;
+    if (id){
+            sql += ' where user_id ='+ id;
     }
     db.any(sql)
         .then(function(data){
@@ -156,7 +156,7 @@ app.post('/products/insert_product', function (req, res) {
     var title = req.body.title;
     var price = req.body.price;
     var time = req.body.time;
-    var sql = `INSERT INTO products (id, title, price, created_at)
+    var sql = `INSERT INTO products (product_id, title, price, created_at)
     VALUES ('${id}', '${title}', '${price}', '${time}')`;
     
     //db.none
@@ -177,11 +177,11 @@ app.get('/insert_user',function (req, res) {
     res.render('pages/insert_user', { time: time}); 
 })
 app.post('/users/insert_user', function (req, res) {
-    var user_id = req.body.user_id;
+    var id = req.body.id;
     var email =req.body.email;
     var password =req.body.password;
     var time =req.body.time;
-    var sql = `INSERT INTO users (user_id,email,password,created_at) VALUES ('${user_id}', '${email}', '${password}', '${time}')`;
+    var sql = `INSERT INTO users (user_id,email,password,created_at) VALUES ('${id}', '${email}', '${password}', '${time}')`;
     //db.none
     console.log('UPDATE:' + sql);
     db.any(sql)
@@ -196,29 +196,43 @@ app.post('/users/insert_user', function (req, res) {
 });
 //update product
 app.post('/products/update',function (req, res) {
-var id =req.body.id;
-var title =req.body.title;
-var price =req.body.price;
-var sql=`update products set title='${title}',price=${price} where id=${id}`;
-// res.send(sql)
-//db.none
-db.query(sql);
-    res.redirect('/products')    
-db.close();
-}) 
-
-//update users
-app.post('/users/update',function (req,res) {
     var id =req.body.id;
-    var email =req.body.email;
-    var password =req.body.password;
-    var sql=`update users set email='${email}',password='${password}' where user_id=${id}`;
+    var title =req.body.title;
+    var price =req.body.price;
+    var time =req.body.time;
+    var sql=`update products set title='${title}',price='${price}',created_at='${time}' where product_id='${id}'`;
     // res.send(sql)
     //db.none
-    db.query(sql);
-        res.redirect('/users')    
-    db.close();
+    db.any(sql)
+            .then(function (data) {
+                console.log('DATA:' + data);
+                res.redirect('/products')
+            })
+    
+            .catch(function (error) {
+                console.log('ERROR:' + error);
+            })
     })
+    
+    //update user
+    app.post('/users/update',function (req, res) {
+        var id =req.body.id;
+        var email =req.body.email;
+        var password =req.body.password;
+        var time =req.body.time;
+        var sql=`update users set email='${email}',password='${password}',created_at='${time}' where user_id='${id}'`;
+        // res.send(sql)
+        //db.none
+        db.any(sql)
+                .then(function (data) {
+                    console.log('DATA:' + data);
+                    res.redirect('/users')
+                })
+        
+                .catch(function (error) {
+                    console.log('ERROR:' + error);
+                })
+        })
 
     //report Products
     app.get('/report_product', function (req, res) {
@@ -239,14 +253,14 @@ app.post('/users/update',function (req,res) {
     //report user
     
 app.get('/report_user', function(req, res) {
-    var sql='select purchases.user_id,purchases.name,users.email,sum(purchase_items.price) as price from purchases inner join users on users.user_id=purchases.user_id inner join purchase_items on purchase_items.purchase_id=purchases.purchase_id group by purchases.user_id,purchases.name,users.email order by sum(purchase_items.price) desc LIMIT 25;'
+    var sql='select purchases.user_id,purchases.name,users.email,sum(purchase_items.price) as price from purchases inner join users on users.user_id=purchases.user_id inner join purchase_items on purchase_items.purchase_id=purchases.purchase_id group by purchases.user_id,purchases.name,users.email order by sum(purchase_items.price) desc LIMIT 10;'
     db.any(sql)
         .then(function (data) 
         {
             // console.log('DATA' + data);
-            res.render('pages/report_user', { user : data });
+            res.render('pages/report_user', { users : data });
         })
-        .catch(function (data) 
+        .catch(function (error) 
         {
             console.log('ERROR' + error);
         })

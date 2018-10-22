@@ -10,19 +10,19 @@
             <th>Tittle</th>
             <th>Price</th>
             <th>Edit</th>
-            <th>Delete</th>
+           
             <th><a  class="btn btn-success" href="/insert_product" role="button">New Product</a></th>
         </tr>
     </thead>
     <tbody id="myTable">
      <% products.forEach(function(product){ %>
         <tr>
-            <td scope="row"><%= product.id %></td>
+            <td scope="row"><%= product.product_id %></td>
             <td><%= product.title %></td>
             <td><%= product.price %></td>
-            <td><a name="" id="" class="btn btn-info" href="/products/<%= product.id %>" role="button">Edit</a></td>
+            <td><a name="" id="" class="btn btn-info" href="/products/<%= product.product_id %>" role="button">Edit</a></td>
             
-            <td><a name="btnConfirm" value="Confirm"  class="btn btn-danger" href="/product_delete/<%= product.id %>" onclick="return confirm('Are you sure you want to delete?')"role="button">DELETE</a></td>
+           
         </tr>
       <% }); %>
     </tbody>
@@ -38,7 +38,18 @@
           });
         });
         </script>
-
+<script>
+    var selectedUser = 0;
+    function deleteUser(id){
+        console.log(id);
+        selectedUser = id;
+        $('#exampleModalCenter').modal('show')
+    }
+    function confirmDelete(){
+        console.log('confirm:'+selectedUser);
+        window.location.href = '/product_delete/'+selectedUser;
+    }        
+</script>
 
 
 
